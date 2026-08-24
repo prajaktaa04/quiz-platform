@@ -1,9 +1,16 @@
 require("dotenv").config();
 
 const mongoose = require("mongoose");
+const dns = require("dns");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
+
+// Use public DNS servers for MongoDB Atlas SRV lookup
+dns.setServers([
+    "8.8.8.8",
+    "1.1.1.1"
+]);
 
 const createAdmin = async () => {
     try {
@@ -19,6 +26,7 @@ const createAdmin = async () => {
 
         if (existingAdmin) {
             console.log("Admin already exists");
+            await mongoose.disconnect();
             process.exit(0);
         }
 
@@ -38,7 +46,9 @@ const createAdmin = async () => {
         console.log("Admin created successfully");
         console.log("Email:", admin.email);
         console.log("Role:", admin.role);
+        console.log("Password: Admin@12345");
 
+        await mongoose.disconnect();
         process.exit(0);
 
     } catch (error) {

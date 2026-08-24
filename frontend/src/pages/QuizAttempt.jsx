@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QuizResult from "./QuizResult";
 
-const API_URL = "http://localhost:5000/api";
+import API_URL from "../config";
 
 function QuizAttempt({ attemptId }) {
     const [attempt, setAttempt] = useState(null);

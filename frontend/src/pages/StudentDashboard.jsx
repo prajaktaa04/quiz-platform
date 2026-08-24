@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-const API_URL = "http://localhost:5000/api";
+import API_URL from "../config";
 
 function StudentDashboard() {
     const [quizzes, setQuizzes] = useState([]);
